@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { LogIn, CircleUserRound, Moon, Sun } from "lucide-react"
 import { logOut } from "../../../firebase";
 import ThemeContext from "../../Contexts/theme/ThemeContext"
@@ -83,21 +83,12 @@ const Navbar = ({uid}) => {
             onMouseEnter={() => setIsHomeOpen(true)}
             onMouseLeave={() => setIsHomeOpen(false)}
           >
-            <a
-              href="#home"
+            <Link
+              to="/"
               className={`${themeColors.text} ${themeColors.textHover} transition-colors duration-300`}
             >
               Home
-            </a>
-            <NavDropdown 
-              isOpen={isHomeOpen} 
-              items={[
-                { label: 'Home Subitem 1', link: '#home1' },
-                { label: 'Home Subitem 2', link: '#home2' }
-              ]}
-              onMouseEnter={() => setIsHomeOpen(true)}
-              onMouseLeave={() => setIsHomeOpen(false)}
-            />
+            </Link>
           </li>
 
           {/* Pricing Dropdown */}
@@ -106,21 +97,13 @@ const Navbar = ({uid}) => {
             onMouseEnter={() => setIsPricingOpen(true)}
             onMouseLeave={() => setIsPricingOpen(false)}
           >
-            <a
-              href="#pricing"
+            <Link
+              to="/pricing"
               className={`${themeColors.text} ${themeColors.textHover} transition-colors duration-300`}
             >
               Pricing
-            </a>
-            <NavDropdown 
-              isOpen={isPricingOpen} 
-              items={[
-                { label: 'Basic Plan', link: '#basic' },
-                { label: 'Premium Plan', link: '#premium' }
-              ]}
-              onMouseEnter={() => setIsPricingOpen(true)}
-              onMouseLeave={() => setIsPricingOpen(false)}
-            />
+            </Link>
+            
           </li>
 
           {/* Government Schemes Dropdown */}
@@ -129,21 +112,12 @@ const Navbar = ({uid}) => {
             onMouseEnter={() => setIsGovtSchemesOpen(true)}
             onMouseLeave={() => setIsGovtSchemesOpen(false)}
           >
-            <a
-              href="#govt-schemes"
+            <Link
+              to="/government-schemes"
               className={`${themeColors.text} ${themeColors.textHover} transition-colors duration-300`}
             >
               Govt Schemes
-            </a>
-            <NavDropdown 
-              isOpen={isGovtSchemesOpen} 
-              items={[
-                { label: 'Scheme 1', link: '#scheme1' },
-                { label: 'Scheme 2', link: '#scheme2' }
-              ]}
-              onMouseEnter={() => setIsGovtSchemesOpen(true)}
-              onMouseLeave={() => setIsGovtSchemesOpen(false)}
-            />
+            </Link>
           </li>
         </ul>
 
