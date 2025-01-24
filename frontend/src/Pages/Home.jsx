@@ -4,8 +4,10 @@ import Header from '../Components/Developer/Header'
 // import { Slider } from '../Components/Developer/Slider';
 import { CardHoverEffectDemo } from '../Components/Aceternity/Main/Card';
 import { AppleCardsCarouselDemo } from '../Components/Aceternity/Main/Applecard';
-import ChatBot from '../Components/Developer/ChatBot';
+// import ChatBot from '../Components/Developer/ChatBot';
 import { useLocation } from 'react-router-dom';
+import Footer from '../Components/Developer/Footer';
+import LandingHome from '../Components/Developer/LandingHome';
 
 // import Dashboard from '../Components/Developer/DashboardOptions';
 // import Navbar from '../Components/Developer/Header';
@@ -23,7 +25,7 @@ const Home = () => {
       <Header uid={uid}/>
       {/* <Slider/> */}
       {/* <Carousel/> */}
-      {/* <LandingHome/> */}
+      <LandingHome/>
       <CardHoverEffectDemo/>
       <AppleCardsCarouselDemo/>
       <Footer/>
