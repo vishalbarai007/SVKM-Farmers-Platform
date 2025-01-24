@@ -2,7 +2,7 @@ import { useState } from "react";
 import ThemeContext from "./ThemeContext";
 
 const ThemeState = ({ children }) => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
   
   const changeTheme = () => {
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');

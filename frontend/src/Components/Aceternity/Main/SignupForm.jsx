@@ -1,12 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
 import { IconBrandGoogle } from "@tabler/icons-react";
+import { setupRecaptcha, signIn, verifyOtp } from "../../../../firebase";
+import ThemeContext from "../../../Contexts/theme/ThemeContext";
 
 export function SignupFormDemo() {
   // State variables for form data and OTP
+  const context = useContext(ThemeContext);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -15,6 +18,7 @@ export function SignupFormDemo() {
   });
   const [otp, setOtp] = useState("");
   const [isOtpStep, setIsOtpStep] = useState(false);
+  const [confirmationResult, setConfirmationResult] = useState(null);
 
   // Handle input changes for form data
   const handleChange = (e) => {
@@ -35,8 +39,7 @@ export function SignupFormDemo() {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
-    // Simulate sending OTP
-    // Replace this with an actual API call to send OTP
+    setConfirmationResult(signIn(formData));
     console.log("Sending OTP to:", formData.contact);
 
     // Move to OTP step
@@ -48,8 +51,7 @@ export function SignupFormDemo() {
     e.preventDefault();
     console.log("OTP entered:", otp);
 
-    // Verify OTP (API call can be made here)
-    // Example: await fetch('/api/verify-otp', { method: 'POST', body: JSON.stringify({ otp }) });
+    verifyOtp(confirmationResult);
 
     alert("OTP verified successfully! Signup complete.");
   };
@@ -138,10 +140,38 @@ export function SignupFormDemo() {
             </button>
           </div>
         </form>
-      ) : null}
+        
+      ) : (
+        <form className="my-8" onSubmit={handleOtpSubmit}>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="otp">Enter OTP</Label>
+            <Input
+              id="otp"
+              placeholder="Enter OTP"
+              type="number"
+              value={otp}
+              onChange={handleOtpChange}
+            />
+          </LabelInputContainer>
+          <button
+          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-input"
+            type="submit"
+          >Verify OTP &rarr;
+          </button> </form>
+      )}
+      <div id="recaptcha-container"></div>
     </div>
   )
 }
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
+ 
 
 const LabelInputContainer = ({ children, className }) => {
   return (
