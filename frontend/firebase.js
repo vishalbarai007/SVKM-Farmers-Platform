@@ -59,7 +59,7 @@ const signIn = ({firstname, lastname, contact, password}) => {
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
       console.log("OTP Sent.");
-      return confirmationResult.verificationId
+      return confirmationResult
     }).catch((error) => {
       console.log("SMS not sent", error);
       // Error; SMS not sent
@@ -68,15 +68,14 @@ const signIn = ({firstname, lastname, contact, password}) => {
     });
 }
 
-const verifyOtp = (verificationId, otp) => {
-  const credential = auth.PhoneAuthProvider.credential(verificationId, otp);
-  auth.signInWithCredential(credential)
-      .then((result) => {
-          console.log("User signed in:", result.user);
-      })
-      .catch((error) => {
-          console.error("Error verifying OTP:", error);
-      });
+const verifyOtp = (confirmationResult, otp) => {
+  confirmationResult.confirm(otp)
+  .then((result) => {
+    console.log("User signed in successfully:", result.user);
+})
+.catch((error) => {
+    console.error("Error during OTP verification:", error);
+});
 };
 
 
