@@ -41,7 +41,7 @@ export function SignupFormDemo() {
         Welcome to Agri-Connect
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Login to aceternity if you can because we don&apos;t have a login flow yet
+        "Bridging Fields to Markets: Empowering Farmers, Connecting Buyers."
       </p>
       <div id="recaptcha-container"></div>
       <form className="my-8" onSubmit={handleSubmit}>
@@ -50,7 +50,7 @@ export function SignupFormDemo() {
             <Label htmlFor="firstname">First name</Label>
             <Input
               id="firstname"
-              placeholder="Tyler"
+              placeholder="Ram-lal"
               type="text"
               value={formData.firstname}
               onChange={handleChange}
@@ -60,7 +60,7 @@ export function SignupFormDemo() {
             <Label htmlFor="lastname">Last name</Label>
             <Input
               id="lastname"
-              placeholder="Durden"
+              placeholder="Chaurasiya"
               type="text"
               value={formData.lastname}
               onChange={handleChange}
