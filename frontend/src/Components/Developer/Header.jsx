@@ -32,7 +32,7 @@ const Navbar = () => {
 
   return (
     <nav className={`shadow-md ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
+      <div className="containermx-auto flex items-center justify-between h-[100px] px-4 py-3">
         {/* Left: Logo */}
         <div className="flex items-center">
           <img
@@ -40,8 +40,8 @@ const Navbar = () => {
             alt="Logo"
             className="h-10 w-10 object-cover"
           />
-          <span className="text-xl font-bold ml-2 text-gray-800 dark:text-white">AgriAssist</span>
-          <img src="/placeholder.svg?height=40&width=40" alt="Logo" className="h-10 w-10 object-cover" />
+          {/* <span className="text-xl font-bold ml-2 text-gray-800 dark:text-white">AgriAssist</span> */}
+          {/* <img src="/placeholder.svg?height=40&width=40" alt="Logo" className="h-10 w-10 object-cover" /> */}
           <span className={`text-xl font-bold ml-2 ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
             FarmAssist
           </span>
@@ -146,7 +146,7 @@ const Navbar = () => {
             onMouseEnter={() => setIsLoginOpen(true)}
             onMouseLeave={() => setIsLoginOpen(false)}
           >
-            {isLoggedIn ? (
+            {/* {isLoggedIn ? (
               <CircleUserRound
                 className="text-gray-600 hover:text-orange-600 cursor-pointer w-6 h-6 transition duration-300"
                 onClick={toggleLogin} // Optional: logout action on click
@@ -156,7 +156,7 @@ const Navbar = () => {
                 className="text-gray-600 hover:text-orange-600 cursor-pointer w-6 h-6 transition duration-300"
                 onClick={toggleLogin} // Optional: login action on click
               />
-            )}
+            )} */}
             <div
               className={`absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 text-black dark:text-white shadow-md rounded-md transition-opacity duration-300 ease-in-out ${
                 isLoginOpen ? "opacity-100" : "opacity-0 pointer-events-none"
