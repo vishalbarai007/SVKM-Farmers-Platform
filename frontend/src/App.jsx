@@ -1,9 +1,10 @@
 import "./App.css";
-import { SignupFormDemo } from "./Components/Aceternity/Main/LoginForm";
-import Footer from "./Components/Developer/Footer";
-import Header from "./Components/Developer/Header";
+// import { SignupFormDemo } from "./Components/Aceternity/Main/SignupForm";
+// import Footer from "./Components/Developer/Footer";
+// import Header from "./Components/Developer/Header";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login";
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
         <Routes>
 
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<SignupFormDemo />} />
+          <Route path="/login" element={<Login />} />
 
 
         </Routes>
