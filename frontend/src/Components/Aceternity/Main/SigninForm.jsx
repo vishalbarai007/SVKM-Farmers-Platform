@@ -8,19 +8,22 @@ import {
     IconBrandGoogle,
     IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import { useContext } from "react";
+import ThemeContext from "../../../Contexts/theme/ThemeContext";
 
 export function SigninFormDemo() {
+    const context = useContext(ThemeContext);
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form submitted");
     };
     return (
         (<div
-            className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-            <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+            className={`max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input ${context.theme === 'dark'? 'bg-black': 'bg-white'}`}>
+            <h2 className={`font-bold text-xl ${context.theme === 'dark'?'dark:text-neutral-200': 'text-neutral-800'}`}>
                 Welcome to Agri-Connect
             </h2>
-            <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
+            <p className={`text-sm max-w-sm mt-2 ${context.theme === 'dark'?'dark:text-neutral-200': 'text-neutral-600'}`}>
                 Login to aceternity if you can because we don&apos;t have a login flow
                 yet
             </p>
@@ -47,7 +50,7 @@ export function SigninFormDemo() {
 
 
                 <button
-                    className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+                    className={`bg-gradient-to-br relative group/btn ${context.theme === 'dark' ? 'bg-zinc-800': 'bg-zinc-200'} block w-full ${context.theme==='dark'? 'text-white': 'text-black'} rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]`}
                     type="submit">
                     Sign In &rarr;
                     <BottomGradient />
@@ -59,10 +62,10 @@ export function SigninFormDemo() {
                 <div className="flex flex-col space-y-4">
 
                     <button
-                        className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+                        className={`relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input ${context.theme === 'dark'? 'bg-zinc-900': 'bg-zinc-200'} dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]`}
                         type="submit">
-                        <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-                        <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+                        <IconBrandGoogle className="h-4 w-4 text-neutral-500" />
+                        <span className={`${context.theme === 'dark'? 'text-neutral-300': 'text-neutral-700'} text-sm`}>
                             Google
                         </span>
                         <BottomGradient />

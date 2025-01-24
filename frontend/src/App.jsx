@@ -5,26 +5,31 @@ import "./App.css";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
+import Navbar from "./Components/Developer/Header";
+import ThemeState from "./Contexts/theme/ThemeState";
 
 const App = () => {
   return (
     // <ThemeState>
-      <BrowserRouter>
+      <ThemeState>
+        <BrowserRouter>
 
-      {/* <Header/> */}
+<Navbar/>
 
-        <Routes>
+{/* <Header/> */}
 
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+  <Routes>
+
+    <Route path="/" element={<Home />} />
+    <Route path="/login" element={<Login />} />
 
 
-        </Routes>
+  </Routes>
 
-      {/* <Footer/> */}
+{/* <Footer/> */}
 
-      </BrowserRouter>
-    // </ThemeState>
+</BrowserRouter>
+    </ThemeState>
   )
 }
 
