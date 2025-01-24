@@ -32,6 +32,7 @@ export function SignupFormDemo() {
     console.log("Form submitted:", formData);
     // Send `formData` to the database via an API call
     // Example: await fetch('/api/signup', { method: 'POST', body: JSON.stringify(formData) });
+    signIn(firstname, lastname, contact, password);
   };
 
   return (
@@ -42,6 +43,7 @@ export function SignupFormDemo() {
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         Login to aceternity if you can because we don&apos;t have a login flow yet
       </p>
+      <div id="recaptcha-container"></div>
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>

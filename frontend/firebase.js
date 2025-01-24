@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, RecaptchaVerifier, createUserWithEmailAndPassword, GoogleAuthProvider, updateProfile } from "firebase/auth";
+import { getAuth, RecaptchaVerifier, onAuthStateChanged, signInWithPhoneNumber, createUserWithEmailAndPassword, GoogleAuthProvider, updateProfile } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,7 +19,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore();
+auth.languageCode = 'it';
+
+const db = getFirestore(app);
 
 
 const provider = new GoogleAuthProvider();
@@ -35,41 +37,45 @@ onAuthStateChanged(auth, (user) => {
     // ...
   }
 });
-
-window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
-  'size': 'invisible',
-  'callback': (response) => {
-    // reCAPTCHA solved, allow signInWithPhoneNumber.
-    onSignInSubmit();
-  }
-});
+const setupRecaptcha = () => {
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    'size': 'invisible',
+    'callback': (response) => {
+      // reCAPTCHA solved, allow signInWithPhoneNumber.
+      console.log("ReCaptcha Verified", response);
+      signIn();
+    }
+  });
+}
 
 const appVerifier = window.recaptchaVerifier;
 
 const signIn = ({firstName, lastName, phoneNumber}) => {
-signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+  signInWithPhoneNumber(auth, phoneNumber, appVerifier)
     .then((confirmationResult) => {
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
       window.confirmationResult = confirmationResult;
       // ...
+      const code = 123456;
+      confirmationResult.confirm(code).then((result) => {
+        // User signed in successfully.
+        const user = result.user;
+        // ...
+      }).catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+      });
     }).catch((error) => {
+      grecaptcha.reset(window.recaptchaWidgetId);
+      console.log("SMS not sent");
       // Error; SMS not sent
       // ...
     });
 }
-const code = getCodeFromUserInput();
-confirmationResult.confirm(code).then((result) => {
-  // User signed in successfully.
-  const user = result.user;
-  // ...
-}).catch((error) => {
-  // User couldn't sign in (bad verification code?)
-  // ...
-});
 
 
-grecaptcha.reset(window.recaptchaWidgetId);
+
 
 
 
@@ -139,5 +145,4 @@ const logOut = () => {
   });
 }
 
-
-module.exports = { signIn }
+export {setupRecaptcha, signIn};
