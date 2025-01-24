@@ -3,6 +3,9 @@ import { HoverEffect } from "../Support/card-hover-effect";
 export function CardHoverEffectDemo() {
   return (
     <div className="max-w-5xl mx-auto px-8">
+      <h1 className="text-center font-extrabold text-4xl text-[#e68e38]">
+        Our Features
+      </h1>
       <HoverEffect items={services} />
     </div>
   );

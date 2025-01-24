@@ -5,6 +5,8 @@ import Header from '../Components/Developer/Header'
 import { CardHoverEffectDemo } from '../Components/Aceternity/Main/Card';
 import { AppleCardsCarouselDemo } from '../Components/Aceternity/Main/Applecard';
 import ChatBot from '../Components/Developer/ChatBot';
+import LandingHome from '../Components/Developer/LandingHome';
+import Footer from '../Components/Developer/Footer';
 // import Dashboard from '../Components/Developer/DashboardOptions';
 // import Navbar from '../Components/Developer/Header';
 // import { Carousel } from '../Components/Aceternity/Support/carousel';
@@ -14,13 +16,10 @@ const Home = () => {
   return (
     <div className=' text-white h-screen '>
       <Header/>
-      {/* <Slider/> */}
-      {/* <Carousel/> */}
-      {/* <LandingHome/> */}
+      <LandingHome/>
       <CardHoverEffectDemo/>
       <AppleCardsCarouselDemo/>
-      <ChatBot/>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   )
 }
