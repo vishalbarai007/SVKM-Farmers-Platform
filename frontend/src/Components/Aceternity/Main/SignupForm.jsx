@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
@@ -15,8 +15,27 @@ export function SignupFormDemo() {
   const context = useContext(ThemeContext);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    console.log("Form submitted:", formData);
+
+    // Simulate sending OTP
+    // Replace this with an actual API call to send OTP
+    console.log("Sending OTP to:", formData.contact);
+
+    // Move to OTP step
+    setIsOtpStep(true);
   };
+
+  // Handle OTP verification
+  const handleOtpSubmit = (e) => {
+    e.preventDefault();
+    console.log("OTP entered:", otp);
+
+    // Verify OTP (API call can be made here)
+    // Example: await fetch('/api/verify-otp', { method: 'POST', body: JSON.stringify({ otp }) });
+
+    alert("OTP verified successfully! Signup complete.");
+  };
+
   return (
     (<div
       className={`max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input ${context.theme === 'dark'? 'bg-black': 'bg-white'}`}>
@@ -27,27 +46,51 @@ export function SignupFormDemo() {
         Login to aceternity if you can because we don&apos;t have a login flow
         yet
       </p>
-      <form className="my-8" onSubmit={handleSubmit}>
-        <div
-          className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+
+      {!isOtpStep ? (
+        <form className="my-8" onSubmit={handleSubmit}>
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+            <LabelInputContainer>
+              <Label htmlFor="firstname">First name</Label>
+              <Input
+                id="firstname"
+                placeholder="Ram-lal"
+                type="text"
+                value={formData.firstname}
+                onChange={handleChange}
+              />
+            </LabelInputContainer>
+            <LabelInputContainer>
+              <Label htmlFor="lastname">Last name</Label>
+              <Input
+                id="lastname"
+                placeholder="Chaurasiya"
+                type="text"
+                value={formData.lastname}
+                onChange={handleChange}
+              />
+            </LabelInputContainer>
+          </div>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="contact">Contact No.</Label>
+            <Input
+              id="contact"
+              placeholder="7709******"
+              type="number"
+              value={formData.contact}
+              onChange={handleChange}
+            />
           </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              placeholder="••••••••"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
           </LabelInputContainer>
-        </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="contact no.">Contact No.</Label>
-          <Input id="contact no." placeholder="7709******" type="number" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-      
 
         <button
           className={`bg-gradient-to-br relative group/btn ${context.theme === 'dark' ? 'bg-zinc-800': 'bg-zinc-200'} block w-full ${context.theme==='dark'? 'text-white': 'text-black'} rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]`}
@@ -70,29 +113,16 @@ export function SignupFormDemo() {
             </span>
             <BottomGradient />
           </button>
-          
-        </div>
-      </form>
-    </div>)
+        </form>
+      )}
+    </div>
   );
 }
 
-const BottomGradient = () => {
-  return (<>
-    <span
-      className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-    <span
-      className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-  </>);
-};
-
-const LabelInputContainer = ({
-  children,
-  className
-}) => {
+const LabelInputContainer = ({ children, className }) => {
   return (
-    (<div className={cn("flex flex-col space-y-2 w-full", className)}>
+    <div className={cn("flex flex-col space-y-2 w-full", className)}>
       {children}
-    </div>)
+    </div>
   );
 };

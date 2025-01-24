@@ -1,7 +1,7 @@
 import "./App.css";
 // import { SignupFormDemo } from "./Components/Aceternity/Main/SignupForm";
-// import Footer from "./Components/Developer/Footer";
-// import Header from "./Components/Developer/Header";
+import Footer from "./Components/Developer/Footer";
+import Header from "./Components/Developer/Header";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
