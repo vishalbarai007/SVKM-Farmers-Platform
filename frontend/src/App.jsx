@@ -10,7 +10,7 @@ const App = () => {
     // <ThemeState>
       <BrowserRouter>
 
-      {/* <Header/> */}
+      <Header/>
 
         <Routes>
 
@@ -20,7 +20,7 @@ const App = () => {
 
         </Routes>
 
-      {/* <Footer/> */}
+      <Footer/>
 
       </BrowserRouter>
     // </ThemeState>
