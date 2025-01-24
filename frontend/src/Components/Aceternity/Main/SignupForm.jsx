@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
-import { signIn, setupRecaptcha, verifyOtp } from "../../../../firebase";
 // import { IconBrandGoogle } from "@tabler/icons-react";
 import {
   IconBrandGithub,
@@ -20,11 +19,8 @@ export function SignupFormDemo() {
     contact: "",
     password: "",
   });
-  const context = useContext(ThemeContext);
-  const [isOtpStep, setIsOtpStep] = useState(false);
   const [otp, setOtp] = useState("");
-  const [verificationId, setVerificationId] = useState("");
-
+  const [isOtpStep, setIsOtpStep] = useState(false);
 
   // Handle input changes for form data
   const handleChange = (e) => {
@@ -35,20 +31,19 @@ export function SignupFormDemo() {
     }));
   };
 
+  // Handle OTP input changes
   const handleOtpChange = (e) => {
-    const value = e.target.value;
-    setOtp(value);
-  }
-
+    setOtp(e.target.value);
+  };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
+    // Simulate sending OTP
+    // Replace this with an actual API call to send OTP
     console.log("Sending OTP to:", formData.contact);
-    setVerificationId(signIn(formData));
-
 
     // Move to OTP step
     setIsOtpStep(true);
@@ -59,7 +54,8 @@ export function SignupFormDemo() {
     e.preventDefault();
     console.log("OTP entered:", otp);
 
-    verifyOtp(verificationId, otp);
+    // Verify OTP (API call can be made here)
+    // Example: await fetch('/api/verify-otp', { method: 'POST', body: JSON.stringify({ otp }) });
 
     alert("OTP verified successfully! Signup complete.");
   };
