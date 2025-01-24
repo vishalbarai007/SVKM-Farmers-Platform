@@ -3,13 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
-// import { IconBrandGoogle } from "@tabler/icons-react";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-} from "@tabler/icons-react";
-import { useContext } from "react";
-import ThemeContext from "../../../Contexts/theme/ThemeContext";
+import { IconBrandGoogle } from "@tabler/icons-react";
 
 export function SignupFormDemo() {
   // State variables for form data and OTP
