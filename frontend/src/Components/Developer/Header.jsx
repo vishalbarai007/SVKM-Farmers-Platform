@@ -4,9 +4,9 @@ import ThemeContext from "../../Contexts/theme/ThemeContext"
 
 const Navbar = () => {
   // State to track login status
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   // State to track dark mode
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // const [isDarkMode, setIsDarkMode] = useState(false);
   // State to track dropdown menu visibility
   const [isHomeOpen, setIsHomeOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
@@ -14,13 +14,13 @@ const Navbar = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   // Toggle the dark mode class on body
-  useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  }, [isDarkMode]);
+  // useEffect(() => {
+  //   if (isDarkMode) {
+  //     document.body.classList.add("dark");
+  //   } else {
+  //     document.body.classList.remove("dark");
+  //   }
+  // }, [isDarkMode]);
 
   // Handle login/logout toggle
   const { theme, changeTheme } = useContext(ThemeContext)
