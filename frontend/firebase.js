@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, RecaptchaVerifier, onAuthStateChanged, signInWithPhoneNumber, createUserWithEmailAndPassword, GoogleAuthProvider, updateProfile } from "firebase/auth";
+import { getAuth, RecaptchaVerifier, onAuthStateChanged, signInWithPhoneNumber, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -47,9 +47,10 @@ const setupRecaptcha = () => {
   }, auth);
   window.recaptchaVerifier.render().then((widgetId) => {
     console.log("reCAPTCHA rendered with widget ID:", widgetId);
-});
+  });
 }
 
+let confresult = null;
 
 const signIn = ({firstname, lastname, contact, password}) => {
   const appVerifier = window.recaptchaVerifier;
@@ -59,17 +60,16 @@ const signIn = ({firstname, lastname, contact, password}) => {
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
       console.log("OTP Sent.");
-      return confirmationResult
+      confresult = confirmationResult;
     }).catch((error) => {
       console.log("SMS not sent", error);
       // Error; SMS not sent
       // ...
-      return "";
     });
 }
 
-const verifyOtp = (confirmationResult, otp) => {
-  confirmationResult.confirm(otp)
+const verifyOtp = (otp) => {
+  confresult.confirm(otp)
   .then((result) => {
     console.log("User signed in successfully:", result.user);
 })
@@ -149,4 +149,4 @@ const logOut = () => {
   });
 }
 
-export {setupRecaptcha, signIn, verifyOtp};
+export {setupRecaptcha, signIn, verifyOtp, googleSignIn};
