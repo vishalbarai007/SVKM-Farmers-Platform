@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
 import { IconBrandGoogle } from "@tabler/icons-react";
-import { setupRecaptcha, signIn, verifyOtp } from "../../../../firebase";
+import { setupRecaptcha, signIn, verifyOtp, googleSignIn } from "../../../../firebase";
 import ThemeContext from "../../../Contexts/theme/ThemeContext";
 
 export function SignupFormDemo() {
@@ -18,7 +18,7 @@ export function SignupFormDemo() {
   });
   const [otp, setOtp] = useState("");
   const [isOtpStep, setIsOtpStep] = useState(false);
-  const [confirmationResult, setConfirmationResult] = useState(null);
+
 
   // Handle input changes for form data
   const handleChange = (e) => {
@@ -38,8 +38,8 @@ export function SignupFormDemo() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-
-    setConfirmationResult(signIn(formData));
+    setupRecaptcha();
+    signIn(formData);
     console.log("Sending OTP to:", formData.contact);
 
     // Move to OTP step
@@ -51,14 +51,15 @@ export function SignupFormDemo() {
     e.preventDefault();
     console.log("OTP entered:", otp);
 
-    verifyOtp(confirmationResult);
+    verifyOtp(otp);
 
     alert("OTP verified successfully! Signup complete.");
   };
 
-  useEffect(() => {
-    setupRecaptcha();
-  }, []);
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+    googleSignIn();
+  }
 
   return (
     <div
@@ -131,6 +132,7 @@ export function SignupFormDemo() {
             <button
               className={`relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input ${context.theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-200'} dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]`}
               type="submit"
+              onClick={handleGoogleLogin}
             >
               <IconBrandGoogle className="h-4 w-4 text-neutral-500" />
               <span className={`${context.theme === 'dark' ? 'text-neutral-300' : 'text-neutral-700'} text-sm`}>
@@ -158,6 +160,7 @@ export function SignupFormDemo() {
             type="submit"
           >Verify OTP &rarr;
           </button> </form>
+
       )}
       <div id="recaptcha-container"></div>
     </div>
