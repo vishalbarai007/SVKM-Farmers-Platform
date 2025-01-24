@@ -8,6 +8,7 @@ import Login from "./Pages/Login";
 import CropForm from "./Components/Developer/Cropdetails";
 // import th from "./Contexts/theme/ThemeContext";
 import ThemeState from "./Contexts/theme/ThemeState";
+import GovernmentSchemes from "./Pages/GovernmentSchemes";
 import Dashboard from "./Components/Developer/DashboardOptions";
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add-crop" element={<CropForm/>} />
+          <Route path="/government-schemes" element={<GovernmentSchemes/>} />
           
 
         </Routes>
