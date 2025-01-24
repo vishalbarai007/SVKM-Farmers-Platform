@@ -5,8 +5,8 @@ import { Slider } from '../Components/Developer/Slider';
 // import Services from '../Components/Developer/Services';
 import { CardHoverEffectDemo } from '../Components/Aceternity/Main/Card';
 import { AppleCardsCarouselDemo } from '../Components/Aceternity/Main/Applecard';
-import Footer from '../Components/Developer/Footer';
-// import { NavbarDemo } from '../Components/Aceternity/Main/Navigation-bar';
+import Dashboard from '../Components/Developer/DashboardOptions';
+import Navbar from '../Components/Developer/Header';
 
 const Home = () => {
   return (

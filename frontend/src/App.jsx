@@ -5,10 +5,10 @@ import Header from "./Components/Developer/Header";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
 import CropForm from "./Components/Developer/Cropdetails";
 // import th from "./Contexts/theme/ThemeContext";
 import ThemeState from "./Contexts/theme/ThemeState";
+import Dashboard from "./Components/Developer/DashboardOptions";
 const App = () => {
   return (
     // <ThemeState>
