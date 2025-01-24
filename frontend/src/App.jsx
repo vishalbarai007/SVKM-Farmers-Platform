@@ -12,23 +12,24 @@ import ThemeState from "./Contexts/theme/ThemeState";
 const App = () => {
   return (
     // <ThemeState>
-      <ThemeState>
-        <BrowserRouter>
+    <ThemeState>
+      <BrowserRouter>
 
-      {/* <Header/> */}
+        {/* <Navbar/> */}
 
-{/* <Header/> */}
+        {/* <Header/> */}
 
-  <Routes>
+        <Routes>
 
-    <Route path="/" element={<Home />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/dashboard" element={<Dashboard />} />
-  </Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
-{/* <Footer/> */}
+        </Routes>
 
-</BrowserRouter>
+        {/* <Footer/> */}
+
+      </BrowserRouter>
     </ThemeState>
   )
 }

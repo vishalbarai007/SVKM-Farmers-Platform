@@ -40,7 +40,7 @@ export function Slider() {
       </SwiperSlide>
       <SwiperSlide className="bg-white-800 text-white flex justify-center items-center h-full">
         Slide 5
-      </SwiperSlide> {/* You can add more slides here */}
+      </SwiperSlide>
     </Swiper>
   );
 }
