@@ -3,8 +3,11 @@ import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { LogIn, CircleUserRound, Moon, Sun } from "lucide-react"
 import { logOut } from "../../../firebase";
 import ThemeContext from "../../Contexts/theme/ThemeContext"
+import UserContext from "../../Contexts/user/UserContext";
 
-const Navbar = ({uid}) => {
+const Navbar = () => {
+  const userContext = useContext(UserContext);
+  const user = userContext.user;
   const [isHomeOpen, setIsHomeOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isGovtSchemesOpen, setIsGovtSchemesOpen] = useState(false);
@@ -13,7 +16,7 @@ const Navbar = ({uid}) => {
   const { theme, changeTheme } = useContext(ThemeContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const navigate = useNavigate(); // Initialize useNavigate hook
-
+  const uid = user?.uid || null;
 
   useEffect(() => {
     if(uid){
@@ -90,6 +93,18 @@ const Navbar = ({uid}) => {
               Home
             </Link>
           </li>
+          {isLoggedIn ? (<li 
+            className="relative group"
+            onMouseEnter={() => setIsHomeOpen(true)}
+            onMouseLeave={() => setIsHomeOpen(false)}
+          >
+            <Link
+              to="/dashboard"
+              className={`${themeColors.text} ${themeColors.textHover} transition-colors duration-300`}
+            >
+              Dashboard
+            </Link>
+          </li>) : null}
 
           {/* Pricing Dropdown */}
           <li 

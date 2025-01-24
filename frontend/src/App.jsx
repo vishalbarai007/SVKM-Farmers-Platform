@@ -15,10 +15,12 @@ import NoOrder from "./Pages/NoOrder";
 import OrderConfirm from "./Pages/OrderConfirm";
 // import Dashboard from "./Pages/Dashboard";
 import DashboardMain from './Components/Developer/DashboardOptions'
+import UserState from "./Contexts/user/UserState";
 const App = () => {
   return (
     // <ThemeState>
-    <ThemeState>
+    <UserState>
+      <ThemeState>
       <BrowserRouter>
 
         {/* <Navbar/> */}
@@ -43,6 +45,7 @@ const App = () => {
 
       </BrowserRouter>
     </ThemeState>
+    </UserState>
   )
 }
 

@@ -6,10 +6,12 @@ import { cn } from "../../../lib/utils";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { setupRecaptcha, signIn, verifyOtp, googleSignIn } from "../../../../firebase";
 import ThemeContext from "../../../Contexts/theme/ThemeContext";
+import UserContext from "../../../Contexts/user/UserContext";
 
 export function SignupFormDemo() {
   // State variables for form data and OTP
   const context = useContext(ThemeContext);
+  const userContext = useContext(UserContext);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -60,8 +62,11 @@ export function SignupFormDemo() {
     navigate("/"); // Redirect to home page
   };
 
-  const goHome = (uid) => {
-    navigate("/", {state: {uid}});
+  const goHome = (user) => {
+    console.log(user)
+    userContext.setUser(user);
+    navigate("/");
+
   }
 
   const handleGoogleLogin = (e) => {

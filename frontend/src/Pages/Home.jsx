@@ -5,7 +5,6 @@ import Header from '../Components/Developer/Header'
 import { CardHoverEffectDemo } from '../Components/Aceternity/Main/Card';
 import { AppleCardsCarouselDemo } from '../Components/Aceternity/Main/Applecard';
 // import ChatBot from '../Components/Developer/ChatBot';
-import { useLocation } from 'react-router-dom';
 import Footer from '../Components/Developer/Footer';
 import LandingHome from '../Components/Developer/LandingHome';
 
@@ -16,13 +15,9 @@ import LandingHome from '../Components/Developer/LandingHome';
 
 const Home = () => {
   
-  const location = useLocation();
-  console.log("state: ", location.state);
-  const uid = location.state?.uid || null;
-  console.log(uid);
   return (
     <div className=' text-white h-screen '>
-      <Header uid={uid}/>
+      <Header />
       {/* <Slider/> */}
       {/* <Carousel/> */}
       <LandingHome/>
