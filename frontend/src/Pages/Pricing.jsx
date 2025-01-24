@@ -59,7 +59,7 @@ const Pricing = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r  from-gray-800 to-black min-h-screen flex flex-col lg:flex-row justify-between items-center px-28">
+    <div className="bg-gradient-to-r bg-gray-800 min-h-screen flex flex-col lg:flex-row justify-between items-center px-28">
       {/* Left Section - Available Crops */}
       <div className="lg:w-1/3 p-6 bg-gray-900 rounded-lg shadow-lg text-white flex flex-col mb-6 lg:mb-0">
         <h2 className="text-2xl font-semibold mb-4 text-center">Available Crops</h2>
@@ -77,7 +77,7 @@ const Pricing = () => {
       </div>
 
       {/* Middle Section - Add Details */}
-      <div className="lg:w-1/3 p-6 flex flex-col justify-center items-center bg-gray-800 shadow-lg text-white">
+      <div className="lg:w-1/3 p-6 flex flex-col justify-center items-center bg-gray-700 shadow-lg text-white">
         <h2 className="text-2xl font-semibold mb-4 text-center">Enter Your Details</h2>
         <form onSubmit={handleCheckPrice} className="space-y-4 w-[90%] max-w-md">
           <div>
@@ -91,7 +91,7 @@ const Pricing = () => {
               placeholder="Enter your name"
               value={buyerName}
               onChange={(e) => setBuyerName(e.target.value)}
-              className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
           </div>
@@ -106,7 +106,7 @@ const Pricing = () => {
               placeholder="Enter minimum price"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
           </div>
@@ -121,7 +121,7 @@ const Pricing = () => {
               placeholder="Enter maximum price"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
           </div>
