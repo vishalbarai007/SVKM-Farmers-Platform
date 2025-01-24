@@ -19,7 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-auth.languageCode = 'it';
+auth.languageCode = 'en';
 
 const db = getFirestore(app);
 
@@ -39,40 +39,45 @@ onAuthStateChanged(auth, (user) => {
 });
 const setupRecaptcha = () => {
   window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-    'size': 'invisible',
+    'size': 'normal',
     'callback': (response) => {
       // reCAPTCHA solved, allow signInWithPhoneNumber.
       console.log("ReCaptcha Verified", response);
-      signIn();
     }
-  });
+  }, auth);
+  window.recaptchaVerifier.render().then((widgetId) => {
+    console.log("reCAPTCHA rendered with widget ID:", widgetId);
+});
 }
 
-const appVerifier = window.recaptchaVerifier;
 
-const signIn = ({firstName, lastName, phoneNumber}) => {
-  signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+const signIn = ({firstname, lastname, contact, password}) => {
+  const appVerifier = window.recaptchaVerifier;
+
+  signInWithPhoneNumber(auth, contact, appVerifier)
     .then((confirmationResult) => {
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
-      window.confirmationResult = confirmationResult;
-      // ...
-      const code = 123456;
-      confirmationResult.confirm(code).then((result) => {
-        // User signed in successfully.
-        const user = result.user;
-        // ...
-      }).catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        // ...
-      });
+      console.log("OTP Sent.");
+      return confirmationResult.verificationId
     }).catch((error) => {
-      grecaptcha.reset(window.recaptchaWidgetId);
-      console.log("SMS not sent");
+      console.log("SMS not sent", error);
       // Error; SMS not sent
       // ...
+      return "";
     });
 }
+
+const verifyOtp = (verificationId, otp) => {
+  const credential = auth.PhoneAuthProvider.credential(verificationId, otp);
+  auth.signInWithCredential(credential)
+      .then((result) => {
+          console.log("User signed in:", result.user);
+      })
+      .catch((error) => {
+          console.error("Error verifying OTP:", error);
+      });
+};
 
 
 
@@ -145,4 +150,4 @@ const logOut = () => {
   });
 }
 
-export {setupRecaptcha, signIn};
+export {setupRecaptcha, signIn, verifyOtp};

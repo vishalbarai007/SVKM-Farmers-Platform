@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
+import { signIn, setupRecaptcha, verifyOtp } from "../../../../firebase";
 // import { IconBrandGoogle } from "@tabler/icons-react";
 
 export function SignupFormDemo() {
@@ -13,8 +14,10 @@ export function SignupFormDemo() {
     contact: "",
     password: "",
   });
-  const [otp, setOtp] = useState("");
   const [isOtpStep, setIsOtpStep] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [verificationId, setVerificationId] = useState("");
+
 
   // Handle input changes for form data
   const handleChange = (e) => {
@@ -25,19 +28,21 @@ export function SignupFormDemo() {
     }));
   };
 
-  // Handle OTP input changes
   const handleOtpChange = (e) => {
-    setOtp(e.target.value);
-  };
+    const value = e.target.value;
+    setOtp(value);
+  }
+
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
-    // Simulate sending OTP
-    // Replace this with an actual API call to send OTP
     console.log("Sending OTP to:", formData.contact);
+    setupRecaptcha();
+    setVerificationId(signIn(formData));
+
 
     // Move to OTP step
     setIsOtpStep(true);
@@ -48,8 +53,7 @@ export function SignupFormDemo() {
     e.preventDefault();
     console.log("OTP entered:", otp);
 
-    // Verify OTP (API call can be made here)
-    // Example: await fetch('/api/verify-otp', { method: 'POST', body: JSON.stringify({ otp }) });
+    verifyOtp(verificationId, otp);
 
     alert("OTP verified successfully! Signup complete.");
   };
@@ -62,6 +66,7 @@ export function SignupFormDemo() {
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         "Bridging Fields to Markets: Empowering Farmers, Connecting Buyers."
       </p>
+      <div id="recaptcha-container"></div>
 
       {!isOtpStep ? (
         <form className="my-8" onSubmit={handleSubmit}>
