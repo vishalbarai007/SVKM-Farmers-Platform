@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react"
 import { LogIn, CircleUserRound, Moon, Sun } from "lucide-react"
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import ThemeContext from "../../Contexts/theme/ThemeContext"
 
 const Navbar = () => {
@@ -44,7 +45,6 @@ const Navbar = () => {
       ))}
     </div>
   );
-  
 
   return (
     <nav className={`shadow-md ${themeColors.nav} relative`}>
@@ -145,14 +145,16 @@ const Navbar = () => {
           </button>
 
           {/* Login Button */}
-          <button
-            onClick={toggleLogin}
-            className={`${themeColors.text} ${themeColors.textHover} cursor-pointer flex transition duration-300`}
-            aria-label={isLoggedIn ? "User profile" : "Log in"}
-          >
-            <p className="mr-2">Login</p>
-            {isLoggedIn ? <CircleUserRound className="w-6 h-6" /> : <LogIn className="w-6 h-6" />}
-          </button>
+          <Link to="/login"> {/* Link to login page */}
+            <button
+              onClick={toggleLogin}
+              className={`${themeColors.text} ${themeColors.textHover} cursor-pointer flex transition duration-300`}
+              aria-label={isLoggedIn ? "User profile" : "Log in"}
+            >
+              <p className="mr-2">Login</p>
+              {isLoggedIn ? <CircleUserRound className="w-6 h-6" /> : <LogIn className="w-6 h-6" />}
+            </button>
+          </Link>
         </div>
       </div>
     </nav>
