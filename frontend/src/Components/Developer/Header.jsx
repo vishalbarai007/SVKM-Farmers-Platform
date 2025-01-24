@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { LogIn, CircleUserRound, Moon, Sun } from "lucide-react"
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { logOut } from "../../../firebase";
 import ThemeContext from "../../Contexts/theme/ThemeContext"
 
-const Navbar = () => {
+const Navbar = ({uid}) => {
   const [isHomeOpen, setIsHomeOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isGovtSchemesOpen, setIsGovtSchemesOpen] = useState(false);
@@ -11,9 +12,22 @@ const Navbar = () => {
 
   const { theme, changeTheme } = useContext(ThemeContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
-  const toggleLogin = () => {
-    setIsLoggedIn(!isLoggedIn)
+
+  useEffect(() => {
+    if(uid){
+      setIsLoggedIn(true);
+    }
+  }, [uid])
+
+  const handleLogin = () => {
+    if(isLoggedIn){
+      logOut();
+      setIsLoggedIn(false);
+    } else{
+      navigate("/login")
+    }
   }
 
   const themeColors = {
@@ -145,16 +159,15 @@ const Navbar = () => {
           </button>
 
           {/* Login Button */}
-          <Link to="/login"> {/* Link to login page */}
             <button
-              onClick={toggleLogin}
               className={`${themeColors.text} ${themeColors.textHover} cursor-pointer flex transition duration-300`}
               aria-label={isLoggedIn ? "User profile" : "Log in"}
+              onClick={handleLogin}
             >
-              <p className="mr-2">Login</p>
+              <p className="mr-2">{isLoggedIn ? 'Logout' : 'Login'}</p>
               {isLoggedIn ? <CircleUserRound className="w-6 h-6" /> : <LogIn className="w-6 h-6" />}
+              
             </button>
-          </Link>
         </div>
       </div>
     </nav>
