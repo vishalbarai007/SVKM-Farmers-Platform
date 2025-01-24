@@ -1,140 +1,68 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { SquarePlus } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
-const Pricing = () => {
-  const [buyerName, setBuyerName] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [message, setMessage] = useState("");
-  const [selectedCrop, setSelectedCrop] = useState(null); // New state to hold selected crop details
-
-  const navigate = useNavigate(); // Hook to navigate to different pages
-
-  // Simulating API call
-  const mockFetch = async (userMin, userMax) => {
-    const cropDetails = [
-      { id: 1, name: "Wheat", price: 3000 },
-      { id: 2, name: "Rice", price: 2500 },
-      { id: 3, name: "Corn", price: 2000 },
-    ];
-
-    // Simulating a delay for fetch
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const matchingCrop = cropDetails.find(
-          (crop) => userMin <= crop.price && userMax >= crop.price
-        );
-        resolve(matchingCrop);
-      }, 1000); // 1-second delay to simulate fetching
-    });
-  };
-
-  const handleCheckPrice = async (e) => {
-    e.preventDefault();
-
-    const userMin = parseFloat(minPrice);
-    const userMax = parseFloat(maxPrice);
-
-    try {
-      // Call the mock API
-      const matchingCrop = await mockFetch(userMin, userMax);
-
-      if (matchingCrop) {
-        setSelectedCrop(matchingCrop); // Store the crop details
-        setMessage(`Crop found: ${matchingCrop.name} priced at ₹${matchingCrop.price}`);
-        // Redirect to the order confirmation page
-        setTimeout(() => {
-          navigate("/order-confirm", { state: { buyerName, crop: matchingCrop } });
-        }, 2000); // Redirect after 2 seconds
-      } else {
-        setMessage(`Sorry, ${buyerName}. No crops match your price range.`);
-        // Redirect to the "no orders available" page
-        setTimeout(() => {
-          navigate("/no-order", { state: { buyerName } });
-        }, 2000); // Redirect after 2 seconds
-      }
-    } catch (error) {
-      console.error("Error occurred while checking price:", error);
-    }
-  };
+const Dashboard = () => {
+  const location = useLocation();
+  const cropData = location.state?.cropData || {}; // Get crop data from the state or use an empty object if none
 
   return (
-    <div className="bg-gradient-to-r  from-gray-800 to-black min-h-screen flex flex-col lg:flex-row justify-between items-center px-28">
-      {/* Left Section - Available Crops */}
-      <div className="lg:w-1/3 p-6 bg-gray-900 rounded-lg shadow-lg text-white flex flex-col mb-6 lg:mb-0">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Available Crops</h2>
-        <div className="space-y-4">
-          {[{ id: 1, name: "Wheat", price: 3000 }, { id: 2, name: "Rice", price: 2500 }, { id: 3, name: "Corn", price: 2000 }].map((crop) => (
-            <div
-              key={crop.id}
-              className="flex justify-between items-center bg-gray-800 p-4 rounded-lg shadow-md"
-            >
-              <p className="text-lg font-medium">{crop.name}</p>
-              <p className="text-lg">₹{crop.price}</p>
-            </div>
-          ))}
+    <div className=" min-h-screen flex flex-col lg:flex-row">
+      {/* Left Section - User Information */}
+      <div className="lg:w-1/4 p-6 bg-gray-900 rounded-lg shadow-lg text-white flex flex-col items-center lg:items-start">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start mb-8">
+          <img
+            src="https://via.placeholder.com/100"
+            alt="User Avatar"
+            className="w-24 h-24 rounded-full mb-4 lg:mb-0 lg:mr-4 shadow-xl transform hover:scale-110 transition-transform duration-300 ease-in-out"
+          />
+          <div className="text-center lg:text-left">
+            <h2 className="text-3xl font-semibold text-gray-100">John Doe</h2>
+            <p className="text-sm text-gray-400">Admin</p>
+          </div>
         </div>
+
+        <div className="space-y-2 text-center lg:text-left mb-4">
+          <p><strong>Email:</strong> johndoe@example.com</p>
+          <p><strong>Phone:</strong> (123) 456-7890</p>
+          <p><strong>Location:</strong> New York, USA</p>
+        </div>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-200 ease-in-out shadow-lg hover:shadow-xl transform hover:scale-105">
+          Edit Profile
+        </button>
       </div>
 
-      {/* Middle Section - Add Details */}
-      <div className="lg:w-1/3 p-6 flex flex-col justify-center items-center bg-gray-800 shadow-lg text-white">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Enter Your Details</h2>
-        <form onSubmit={handleCheckPrice} className="space-y-4 w-[90%] max-w-md">
-          <div>
-            <label htmlFor="buyerName" className="block mb-2 text-gray-300">
-              Your Name:
-            </label>
-            <input
-              type="text"
-              id="buyerName"
-              name="buyerName"
-              placeholder="Enter your name"
-              value={buyerName}
-              onChange={(e) => setBuyerName(e.target.value)}
-              className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
+      {/* Middle Section - SquarePlus Logo and Text */}
+      <div className="lg:w-1/4 p-6 flex flex-col justify-center items-center bg-gray-700 rounded-lg shadow-lg text-white">
+        <Link to="/add-crop">
+          <SquarePlus className="text-7xl mb-4 transform hover:scale-125 transition-transform duration-300 ease-in-out" />
+        </Link>
+        <p className="text-2xl font-semibold text-center text-gray-100">Add Details of Crop</p>
+      </div>
+
+      {/* Right Section - Display Details */}
+      <div className="lg:w-2/4 p-6 bg-gray-900 rounded-lg shadow-lg text-white">
+        <h2 className="text-2xl font-semibold mb-4 text-center lg:text-left">Details</h2>
+        {/* Display crop details */}
+        {Object.keys(cropData).length > 0 ? (
+          <div className="space-y-2">
+            <p><strong>Crop Name:</strong> {cropData.cropName}</p>
+            <p><strong>Crop Type:</strong> {cropData.cropType}</p>
+            <p><strong>Price Per Unit:</strong> ${cropData.pricePerUnit}</p>
+            <p><strong>Quantity Available:</strong> {cropData.quantityAvailable} units</p>
+            <p><strong>Harvest Date:</strong> {cropData.harvestDate}</p>
+            <p><strong>Location:</strong> {cropData.location}</p>
+            <p><strong>Description:</strong> {cropData.description}</p>
+            <p><strong>Supplier Name:</strong> {cropData.supplierName}</p>
+            <p><strong>Supplier Contact:</strong> {cropData.supplierContact}</p>
+            <p><strong>Availability Status:</strong> {cropData.availabilityStatus}</p>
           </div>
-          <div>
-            <label htmlFor="minPrice" className="block mb-2 text-gray-300">
-              Minimum Price:
-            </label>
-            <input
-              type="number"
-              id="minPrice"
-              name="minPrice"
-              placeholder="Enter minimum price"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="maxPrice" className="block mb-2 text-gray-300">
-              Maximum Price:
-            </label>
-            <input
-              type="number"
-              id="maxPrice"
-              name="maxPrice"
-              placeholder="Enter maximum price"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-600 w-full py-3 rounded-lg font-semibold text-white transition-transform transform hover:scale-105"
-          >
-            Check Price
-          </button>
-        </form>
+        ) : (
+          <p>No crop details available. Please add crop details.</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default Pricing;
+export default Dashboard;

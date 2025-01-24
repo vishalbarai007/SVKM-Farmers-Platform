@@ -9,10 +9,12 @@ import CropForm from "./Components/Developer/Cropdetails";
 // import th from "./Contexts/theme/ThemeContext";
 import ThemeState from "./Contexts/theme/ThemeState";
 import GovernmentSchemes from "./Pages/GovernmentSchemes";
-import Dashboard from "./Components/Developer/DashboardOptions";
+// import Dashboard from "./Components/Developer/Dashboard";
 import Pricing from "./Pages/Pricing";
 import NoOrder from "./Pages/NoOrder";
 import OrderConfirm from "./Pages/OrderConfirm";
+// import Dashboard from "./Pages/Dashboard";
+import DashboardMain from './Components/Developer/DashboardOptions'
 const App = () => {
   return (
     // <ThemeState>
@@ -27,7 +29,7 @@ const App = () => {
 
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<DashboardMain />} />
           <Route path="/add-crop" element={<CropForm/>} />
           <Route path="/government-schemes" element={<GovernmentSchemes/>} />
           <Route path="/pricing" element={<Pricing/>} />

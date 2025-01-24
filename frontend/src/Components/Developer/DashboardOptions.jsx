@@ -8,9 +8,9 @@ import {
   Building2,
   PlusCircle 
 } from 'lucide-react';
-import DashboardMain from '../../Pages/Dashboard'
+import Dashboard from '../../Pages/Dashboard'
 
-const Dashboard = () => {
+const DashboardMain = () => {
   const [activeSection, setActiveSection] = useState('marketPrice');
 
   const sidebarOptions = [
@@ -66,7 +66,7 @@ const Dashboard = () => {
       case 'cropReports':
         return <CropReportsContent />;
       case 'addCrops':
-        return <DashboardMain />;
+        return <Dashboard />;
       default:
         return <MarketPriceContent />;
     }
@@ -156,4 +156,4 @@ const AddCropsContent = () => (
   </div>
 );
 
-export default Dashboard;
+export default DashboardMain;
