@@ -69,8 +69,7 @@ export function SignupFormDemo() {
         Welcome to Agri-Connect
       </h2>
       <p className={`text-sm max-w-sm mt-2 ${context.theme === 'dark' ? 'dark:text-neutral-200' : 'text-neutral-600'}`}>
-        Login to aceternity if you can because we don&apos;t have a login flow yet
-      </p>
+      "Bridging Fields to Markets: Empowering Farmers, Connecting Buyers.      </p>
 
       {!isOtpStep ? (
         <form className="my-8" onSubmit={handleSubmit}>
