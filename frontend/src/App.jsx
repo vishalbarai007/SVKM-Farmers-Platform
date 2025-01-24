@@ -11,27 +11,26 @@ import CropForm from "./Components/Developer/Cropdetails";
 import ThemeState from "./Contexts/theme/ThemeState";
 const App = () => {
   return (
+    // <ThemeState>
     <ThemeState>
-        <BrowserRouter>
+      <BrowserRouter>
 
-      {/* <Header/> */}
+        {/* <Navbar/> */}
 
-{/* <Header/> */}
+        {/* <Header/> */}
 
-  <Routes>
+        <Routes>
 
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-crop" element={<CropForm />} />
 
+        </Routes>
 
-  </Routes>
+        {/* <Footer/> */}
 
-<Footer/>
-
-</BrowserRouter>
-     </ThemeState>
+      </BrowserRouter>
+    </ThemeState>
   )
 }
 

@@ -32,7 +32,7 @@ const Navbar = () => {
 
   return (
     <nav className={`shadow-md ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
-      <div className="containermx-auto flex items-center justify-between h-[100px] px-4 py-3">
+      <div className="container mx-auto w-full flex items-center justify-between h-[100px] px-4 py-3">
         {/* Left: Logo */}
         <div className="flex items-center">
           <img
@@ -171,9 +171,12 @@ const Navbar = () => {
             onClick={toggleLogin}
             className={`${
               theme === "dark" ? "text-white hover:text-orange-400" : "text-gray-600 hover:text-orange-600"
-            } cursor-pointer transition duration-300`}
+            } cursor-pointer flex transition duration-300`}
             aria-label={isLoggedIn ? "User profile" : "Log in"}
           >
+            <p className="mr-2">
+            Login
+            </p>
             {isLoggedIn ? <CircleUserRound className="w-6 h-6" /> : <LogIn className="w-6 h-6" />}
           </button>
         </div>
