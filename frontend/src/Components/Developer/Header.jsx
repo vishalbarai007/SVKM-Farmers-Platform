@@ -36,7 +36,7 @@ const Navbar = () => {
         {/* Left: Logo */}
         <div className="flex items-center">
           <img
-            src="https://via.placeholder.com/40" // Replace with your logo
+            src="/assets/farming_logo_transparent.png" // Replace with your logo
             alt="Logo"
             className="h-10 w-10 object-cover"
           />
