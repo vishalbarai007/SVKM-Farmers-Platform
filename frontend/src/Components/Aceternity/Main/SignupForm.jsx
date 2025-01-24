@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
+import { signIn, setupRecaptcha, verifyOtp } from "../../../../firebase";
+// import { IconBrandGoogle } from "@tabler/icons-react";
 import {
   IconBrandGithub,
   IconBrandGoogle,
@@ -12,15 +14,43 @@ import { useContext } from "react";
 import ThemeContext from "../../../Contexts/theme/ThemeContext";
 
 export function SignupFormDemo() {
+  // State variables for form data and OTP
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    contact: "",
+    password: "",
+  });
   const context = useContext(ThemeContext);
   const [isOtpStep, setIsOtpStep] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [verificationId, setVerificationId] = useState("");
+
+
+  // Handle input changes for form data
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleOtpChange = (e) => {
+    const value = e.target.value;
+    setOtp(value);
+  }
+
+
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
-    // Simulate sending OTP
-    // Replace this with an actual API call to send OTP
     console.log("Sending OTP to:", formData.contact);
+    setupRecaptcha();
+    setVerificationId(signIn(formData));
+
 
     // Move to OTP step
     setIsOtpStep(true);
@@ -31,8 +61,7 @@ export function SignupFormDemo() {
     e.preventDefault();
     console.log("OTP entered:", otp);
 
-    // Verify OTP (API call can be made here)
-    // Example: await fetch('/api/verify-otp', { method: 'POST', body: JSON.stringify({ otp }) });
+    verifyOtp(verificationId, otp);
 
     alert("OTP verified successfully! Signup complete.");
   };
@@ -47,6 +76,7 @@ export function SignupFormDemo() {
       <p className={`text-sm max-w-sm mt-2 ${context.theme === 'dark' ? 'dark:text-neutral-200' : 'text-neutral-600'}`}>
         Login to aceternity if you can because we don&apos;t have a login flow yet
       </p>
+      <div id="recaptcha-container"></div>
 
       {!isOtpStep ? (
         <form className="my-8" onSubmit={handleSubmit}>

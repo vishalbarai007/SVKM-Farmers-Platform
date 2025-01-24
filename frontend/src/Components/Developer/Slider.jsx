@@ -26,7 +26,7 @@ export function Slider() {
       onSlideChange={() => console.log('slide change')}
       className="h-screen"  // Full height of the viewport
     >
-      <SwiperSlide className="bg-white-800 text-white flex justify-center items-center h-full">
+      <SwiperSlide className="bg-gray-800 text-white flex justify-center items-center h-full">
         Slide 1
       </SwiperSlide>
       <SwiperSlide className="bg-white-800 text-white flex justify-center items-center h-full">

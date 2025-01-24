@@ -5,6 +5,7 @@ import Header from "./Components/Developer/Header";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
+import Dashboard from "./Pages/Dashboard";
 import Navbar from "./Components/Developer/Header";
 import ThemeState from "./Contexts/theme/ThemeState";
 
@@ -19,6 +20,10 @@ const App = () => {
 {/* <Header/> */}
 
   <Routes>
+
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
     <Route path="/" element={<Home />} />
     <Route path="/login" element={<Login />} />
