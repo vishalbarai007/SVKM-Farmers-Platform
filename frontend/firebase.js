@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, updateProfile } from "firebase/auth";
+import { getAuth, RecaptchaVerifier, createUserWithEmailAndPassword, GoogleAuthProvider, updateProfile } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -36,41 +36,78 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-const signUp = async (username, email, password) => {
-  try {
-    // Create user with email and password
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    // Update the displayName with the username
-    await updateProfile(user, { displayName: username });
-
-    // Store the username in Firestore
-    await setDoc(doc(db, "users", user.uid), {
-        username: username,
-        email: email,
-    });
-
-    console.log("User signed up successfully!");
-} catch (error) {
-    console.error("Error signing up:", error);
-}
-
-}
-
-const signIn = async (email, password) => {
-  try {
-    // Create user with email and password
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-
-    console.log("User signed up successfully!");
-  } catch (error) {
-      console.error("Error signing up:", error);
+window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+  'size': 'invisible',
+  'callback': (response) => {
+    // reCAPTCHA solved, allow signInWithPhoneNumber.
+    onSignInSubmit();
   }
+});
 
+const appVerifier = window.recaptchaVerifier;
+
+const signIn = ({firstName, lastName, phoneNumber}) => {
+signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      window.confirmationResult = confirmationResult;
+      // ...
+    }).catch((error) => {
+      // Error; SMS not sent
+      // ...
+    });
 }
+const code = getCodeFromUserInput();
+confirmationResult.confirm(code).then((result) => {
+  // User signed in successfully.
+  const user = result.user;
+  // ...
+}).catch((error) => {
+  // User couldn't sign in (bad verification code?)
+  // ...
+});
+
+
+grecaptcha.reset(window.recaptchaWidgetId);
+
+
+
+// const signUp = async (username, email, password) => {
+//   try {
+//     // Create user with email and password
+//     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+//     const user = userCredential.user;
+
+//     // Update the displayName with the username
+//     await updateProfile(user, { displayName: username });
+
+//     // Store the username in Firestore
+//     await setDoc(doc(db, "users", user.uid), {
+//         username: username,
+//         email: email,
+//     });
+
+//     console.log("User signed up successfully!");
+// } catch (error) {
+//     console.error("Error signing up:", error);
+// }
+
+// }
+
+// const signIn = async (email, password) => {
+//   try {
+//     // Create user with email and password
+//     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+//     const user = userCredential.user;
+
+
+//     console.log("User signed up successfully!");
+//   } catch (error) {
+//       console.error("Error signing up:", error);
+//   }
+
+// }
 
 const googleSignIn = async () => {
   signInWithPopup(auth, provider)
@@ -103,3 +140,4 @@ const logOut = () => {
 }
 
 
+module.exports = { signIn }

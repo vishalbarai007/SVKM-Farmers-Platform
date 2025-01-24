@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { Label } from "../Support/label";
 import { Input } from "../Support/input";
 import { cn } from "../../../lib/utils";
-import { IconBrandGoogle } from "@tabler/icons-react";
+import { signIn } from "../../../../firebase";
+import {
+  IconBrandGoogle,
+} from "@tabler/icons-react";
 
 export function SignupFormDemo() {
   // State variables to capture user inputs
