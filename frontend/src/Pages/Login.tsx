@@ -43,17 +43,12 @@ const Login = () => {
 
     return (
       <div className="h-screen w-full bg-zinc-950 flex justify-center items-center flex-col -z-30">
-        {/* <BackgroundBeamsWithCollision children={undefined} /> */}
         <SigninFormDemo />
         <p
-          className="
-    absolute text-white 
-     bottom-[20%] 
-    sm:bottom-[20%] 
-     md:bottom-[15%] 
-    xl:bottom-[17%] 
-    z-50
-  "
+          className="text-white absolute z-20  bottom-[6%] 
+     sm:bottom-[20%] 
+     md:bottom-[10%] 
+     xl:bottom-[13%] "
         >
           Already have Account?{" "}
           <a
