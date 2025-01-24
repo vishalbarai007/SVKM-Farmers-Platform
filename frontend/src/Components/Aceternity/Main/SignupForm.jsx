@@ -60,8 +60,8 @@ export function SignupFormDemo() {
     navigate("/"); // Redirect to home page
   };
 
-  const goHome = () => {
-    navigate("/");
+  const goHome = (uid) => {
+    navigate("/", {state: {uid}});
   }
 
   const handleGoogleLogin = (e) => {

@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, RecaptchaVerifier, onAuthStateChanged, signInWithPhoneNumber, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -26,17 +26,6 @@ const db = getFirestore(app);
 
 const provider = new GoogleAuthProvider();
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
-    const uid = user.uid;
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
-});
 const setupRecaptcha = () => {
   window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
     'size': 'normal',
@@ -119,7 +108,7 @@ const verifyOtp = (otp) => {
 
 // }
 
-const googleSignIn = async () => {
+const googleSignIn = async (redirect) => {
   signInWithPopup(auth, provider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -128,6 +117,7 @@ const googleSignIn = async () => {
     // The signed-in user info.
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
+    redirect(user.uid);
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -141,6 +131,15 @@ const googleSignIn = async () => {
   });
 }
 
+const saveChat = async (message, sender) => {
+  await addDoc(collection(db, 'chatlogs'), {
+    message,
+    sender,
+    timestamp: new Date(),
+  });
+};
+
+
 const logOut = () => {
   signOut(auth).then(() => {
     // Sign-out successful.
@@ -149,4 +148,4 @@ const logOut = () => {
   });
 }
 
-export {setupRecaptcha, signIn, verifyOtp, googleSignIn};
+export {setupRecaptcha, signIn, verifyOtp, googleSignIn, logOut};
