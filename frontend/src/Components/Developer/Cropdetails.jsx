@@ -41,10 +41,10 @@ const CropForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900">
+    <div className="flex justify-center items-center min-h-screen p-10 bg-gray-900">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-lg text-white w-full sm:w-[650px]"
+        className="bg-gray-800 p-8 rounded-lg shadow-lg text-white h-80vh w-full sm:w-[650px]"
       >
         <h2 className="text-2xl font-semibold mb-6 text-center">Add Crop Details</h2>
 
