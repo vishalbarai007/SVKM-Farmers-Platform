@@ -3,26 +3,11 @@ import { LogIn, CircleUserRound, Moon, Sun } from "lucide-react"
 import ThemeContext from "../../Contexts/theme/ThemeContext"
 
 const Navbar = () => {
-  // State to track login status
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // State to track dark mode
-  // const [isDarkMode, setIsDarkMode] = useState(false);
-  // State to track dropdown menu visibility
   const [isHomeOpen, setIsHomeOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isGovtSchemesOpen, setIsGovtSchemesOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  // Toggle the dark mode class on body
-  // useEffect(() => {
-  //   if (isDarkMode) {
-  //     document.body.classList.add("dark");
-  //   } else {
-  //     document.body.classList.remove("dark");
-  //   }
-  // }, [isDarkMode]);
-
-  // Handle login/logout toggle
   const { theme, changeTheme } = useContext(ThemeContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -30,153 +15,142 @@ const Navbar = () => {
     setIsLoggedIn(!isLoggedIn)
   }
 
+  const themeColors = {
+    nav: theme === "dark" ? "bg-gray-900" : "bg-white",
+    text: theme === "dark" ? "text-white" : "text-gray-800",
+    textHover: theme === "dark" ? "hover:text-orange-400" : "hover:text-orange-600",
+    dropdown: theme === "dark" ? "bg-gray-800" : "bg-white",
+    dropdownText: theme === "dark" ? "text-white" : "text-gray-800",
+    iconColor: theme === "dark" ? "text-white" : "text-gray-600"
+  };
+
+  const NavDropdown = ({ isOpen, items, onMouseEnter, onMouseLeave }) => (
+    <div
+      className={`absolute left-0 mt-0 w-48 ${themeColors.dropdown} ${themeColors.dropdownText} 
+        shadow-lg rounded-md z-50 transition-all duration-300 ease-in-out 
+        ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{ top: '100%' }}  // Ensure the dropdown is positioned correctly
+    >
+      {items.map((item, index) => (
+        <a
+          key={index}
+          href={item.link}
+          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  );
+  
+
   return (
-    <nav className={`shadow-md ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+    <nav className={`shadow-md ${themeColors.nav} relative`}>
       <div className="container mx-auto w-full flex items-center justify-between h-[100px] px-4 py-3">
-        {/* Left: Logo */}
+        {/* Logo Section */}
         <div className="flex items-center">
           <img
-            src="/assets/farming_logo_transparent.png" // Replace with your logo
+            src="/assets/farming_logo_transparent.png"
             alt="Logo"
             className="h-10 w-10 object-cover"
           />
-          {/* <span className="text-xl font-bold ml-2 text-gray-800 dark:text-white">AgriAssist</span> */}
-          {/* <img src="/placeholder.svg?height=40&width=40" alt="Logo" className="h-10 w-10 object-cover" /> */}
-          <span className={`text-xl font-bold ml-2 ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
+          <span className={`text-xl font-bold ml-2 ${themeColors.text}`}>
             FarmAssist
           </span>
         </div>
 
-        {/* Middle: Navigation Links */}
+        {/* Navigation Links */}
         <ul className="hidden md:flex space-x-8 font-medium">
           {/* Home Dropdown */}
-          <li
-            className="cursor-pointer relative group"
+          <li 
+            className="relative group"
             onMouseEnter={() => setIsHomeOpen(true)}
             onMouseLeave={() => setIsHomeOpen(false)}
           >
             <a
               href="#home"
-              className="text-black hover:text-orange-600 dark:text-white dark:hover:text-orange-600 transition-colors duration-300"
+              className={`${themeColors.text} ${themeColors.textHover} transition-colors duration-300`}
             >
               Home
             </a>
-            <div
-              className={`absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 text-black dark:text-white shadow-md rounded-md transition-opacity duration-300 ease-in-out ${
-                isHomeOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-            >
-              <a href="#home" className="block px-4 py-2">Home Subitem 1</a>
-              <a href="#home" className="block px-4 py-2">Home Subitem 2</a>
-            </div>
+            <NavDropdown 
+              isOpen={isHomeOpen} 
+              items={[
+                { label: 'Home Subitem 1', link: '#home1' },
+                { label: 'Home Subitem 2', link: '#home2' }
+              ]}
+              onMouseEnter={() => setIsHomeOpen(true)}
+              onMouseLeave={() => setIsHomeOpen(false)}
+            />
           </li>
 
           {/* Pricing Dropdown */}
-          <li
-            className="cursor-pointer relative group"
+          <li 
+            className="relative group"
             onMouseEnter={() => setIsPricingOpen(true)}
             onMouseLeave={() => setIsPricingOpen(false)}
           >
             <a
               href="#pricing"
-              className="text-black hover:text-orange-600 dark:text-white dark:hover:text-orange-600 transition-colors duration-300"
+              className={`${themeColors.text} ${themeColors.textHover} transition-colors duration-300`}
             >
               Pricing
             </a>
-            <div
-              className={`absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 text-black dark:text-white shadow-md rounded-md transition-opacity duration-300 ease-in-out ${
-                isPricingOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-            >
-              <a href="#pricing" className="block px-4 py-2">Basic Plan</a>
-              <a href="#pricing" className="block px-4 py-2">Premium Plan</a>
-            </div>
+            <NavDropdown 
+              isOpen={isPricingOpen} 
+              items={[
+                { label: 'Basic Plan', link: '#basic' },
+                { label: 'Premium Plan', link: '#premium' }
+              ]}
+              onMouseEnter={() => setIsPricingOpen(true)}
+              onMouseLeave={() => setIsPricingOpen(false)}
+            />
           </li>
 
-          {/* Govt Schemes Dropdown */}
-          <li
-            className="cursor-pointer relative group"
+          {/* Government Schemes Dropdown */}
+          <li 
+            className="relative group"
             onMouseEnter={() => setIsGovtSchemesOpen(true)}
             onMouseLeave={() => setIsGovtSchemesOpen(false)}
           >
             <a
               href="#govt-schemes"
-              className="text-black hover:text-orange-600 dark:text-white dark:hover:text-orange-600 transition-colors duration-300"
+              className={`${themeColors.text} ${themeColors.textHover} transition-colors duration-300`}
             >
               Govt Schemes
             </a>
-            <div
-              className={`absolute left-0 mt-2 w-48 bg-white dark:bg-gray-700 text-black dark:text-white shadow-md rounded-md transition-opacity duration-300 ease-in-out ${
-                isGovtSchemesOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-            >
-              <a href="#scheme1" className="block px-4 py-2">Scheme 1</a>
-              <a href="#scheme2" className="block px-4 py-2">Scheme 2</a>
-            </div>
+            <NavDropdown 
+              isOpen={isGovtSchemesOpen} 
+              items={[
+                { label: 'Scheme 1', link: '#scheme1' },
+                { label: 'Scheme 2', link: '#scheme2' }
+              ]}
+              onMouseEnter={() => setIsGovtSchemesOpen(true)}
+              onMouseLeave={() => setIsGovtSchemesOpen(false)}
+            />
           </li>
-          {["Home", "Pricing", "Govt Schemes"].map((item) => (
-            <li key={item} className="cursor-pointer relative group">
-              <a
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
-                className={`${
-                  theme === "dark" ? "text-white hover:text-orange-400" : "text-black hover:text-orange-600"
-                } transition-colors duration-300`}
-              >
-                {item}
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-orange-600 transition-all group-hover:w-full"></span>
-              </a>
-            </li>
-          ))}
         </ul>
 
-        {/* Right: Theme Switcher and Login Section */}
+        {/* Right Section */}
         <div className="flex items-center space-x-4">
           {/* Theme Switcher */}
           <button
-            className={`cursor-pointer ${theme === "dark" ? "text-white" : "text-gray-600"}`}
+            className={`cursor-pointer ${themeColors.iconColor}`}
             onClick={changeTheme}
             aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
           >
             {theme === "light" ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6" />}
           </button>
 
-          {/* Login Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsLoginOpen(true)}
-            onMouseLeave={() => setIsLoginOpen(false)}
-          >
-            {/* {isLoggedIn ? (
-              <CircleUserRound
-                className="text-gray-600 hover:text-orange-600 cursor-pointer w-6 h-6 transition duration-300"
-                onClick={toggleLogin} // Optional: logout action on click
-              />
-            ) : (
-              <LogIn
-                className="text-gray-600 hover:text-orange-600 cursor-pointer w-6 h-6 transition duration-300"
-                onClick={toggleLogin} // Optional: login action on click
-              />
-            )} */}
-            <div
-              className={`absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 text-black dark:text-white shadow-md rounded-md transition-opacity duration-300 ease-in-out ${
-                isLoginOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-            >
-              <a href="#login" className="block px-4 py-2">Login</a>
-              <a href="#signup" className="block px-4 py-2">Sign Up</a>
-            </div>
-          </div>
-          {/* Conditionally render based on login status */}
+          {/* Login Button */}
           <button
             onClick={toggleLogin}
-            className={`${
-              theme === "dark" ? "text-white hover:text-orange-400" : "text-gray-600 hover:text-orange-600"
-            } cursor-pointer flex transition duration-300`}
+            className={`${themeColors.text} ${themeColors.textHover} cursor-pointer flex transition duration-300`}
             aria-label={isLoggedIn ? "User profile" : "Log in"}
           >
-            <p className="mr-2">
-            Login
-            </p>
+            <p className="mr-2">Login</p>
             {isLoggedIn ? <CircleUserRound className="w-6 h-6" /> : <LogIn className="w-6 h-6" />}
           </button>
         </div>
@@ -186,4 +160,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-
