@@ -74,7 +74,7 @@ const Navbar = () => {
             className="h-10 w-10 object-cover"
           />
           <span className={`text-xl font-bold ml-2 ${themeColors.text}`}>
-            FarmAssist
+            Agri-Connect
           </span>
         </div>
 

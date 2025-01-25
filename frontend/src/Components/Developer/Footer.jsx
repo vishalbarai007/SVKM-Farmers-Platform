@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-12">
             <div className='p-3 rounded-md text-center'>
-              <h3 className="text-lg font-semibold mb-2">Institute Address</h3>
+              <h3 className="text-lg font-semibold mb-2">Agri-Connect</h3>
               <p>Crestwood Institute of Technology &nbsp;<span className='text-blue-400'>CIT</span>&nbsp;<br></br>
                 Legacy Parkway
                 Riverside Hills, NY 10118

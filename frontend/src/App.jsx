@@ -1,7 +1,7 @@
 import "./App.css";
 // import { SignupFormDemo } from "./Components/Aceternity/Main/SignupForm";
-import Footer from "./Components/Developer/Footer";
-import Header from "./Components/Developer/Header";
+// import Footer from "./Components/Developer/Footer";
+// import Header from "./Components/Developer/Header";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
@@ -16,6 +16,7 @@ import OrderConfirm from "./Pages/OrderConfirm";
 // import Dashboard from "./Pages/Dashboard";
 import DashboardMain from './Components/Developer/DashboardOptions'
 import UserState from "./Contexts/user/UserState";
+import SplashScreen from "./Components/Developer/SplashScreen";
 const App = () => {
   return (
     // <ThemeState>
@@ -23,13 +24,11 @@ const App = () => {
       <ThemeState>
       <BrowserRouter>
 
-        {/* <Navbar/> */}
-
-        {/* <Header/> */}
-
         <Routes>
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<SplashScreen />} />
+          <Route path="/home" element={<Home />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<DashboardMain />} />
           <Route path="/add-crop" element={<CropForm/>} />
@@ -41,7 +40,6 @@ const App = () => {
 
         </Routes>
 
-        {/* <Footer/> */}
 
       </BrowserRouter>
     </ThemeState>

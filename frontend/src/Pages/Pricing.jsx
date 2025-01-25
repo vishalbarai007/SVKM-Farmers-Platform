@@ -60,6 +60,7 @@ const Pricing = () => {
 
   return (
     <div className="bg-gradient-to-r bg-gray-800 min-h-screen flex flex-col lg:flex-row justify-between items-center px-28">
+      
       {/* Left Section - Available Crops */}
       <div className="lg:w-1/3 p-6 bg-gray-900 rounded-lg shadow-lg text-white flex flex-col mb-6 lg:mb-0">
         <h2 className="text-2xl font-semibold mb-4 text-center">Available Crops</h2>
