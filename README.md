@@ -82,7 +82,7 @@ Agri-Connect is a web-based platform designed to bridge the gap between farmers 
 
 5. Open your browser and visit:
    ```
-   http://localhost:3000
+   http://localhost:5173
    ```
 
 ---
